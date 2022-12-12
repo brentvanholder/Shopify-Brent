@@ -1,0 +1,78 @@
+{%- liquid
+  assign s = section.settings
+-%}
+
+<section id="{{- section.id -}}">
+  <div class="AnnouncementBar">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.text != blank -%}
+        <div class="announcement-bar__item" data-announcement-item>
+          {{- block.settings.text -}}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  .AnnouncementBar {
+    background-color: {{ s.background_color }};
+    color: {{ s.text_color }};
+    display: flex;
+    padding: 20px;
+  }
+
+  .announcement-bar__item {
+    width: 100%;
+  }
+</style>
+
+{%- schema -%}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement_text",
+      "name": "Announcement Text",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{%- endschema -%}
